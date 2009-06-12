@@ -97,3 +97,40 @@ Note the use of the base method in the constructor. This ensures that the Shape 
 
   * If you define a class method (not an instance method) called init it will be automatically called when the class is created
   * Constructor functions are never called during the prototyping phase (subclassing)
+  
+Classes With Private Data
+=========================
+Some developers prefer to create classes where methods access private data:
+
+    function Circle(radius) {
+      this.getCircumference = function() {
+        return 2 * Math.PI * radius;
+      };
+    };
+    
+You can achieve the same result using the Base class:
+
+    var Circle = Shape.extend({
+      constructor: function(radius) {
+        this.extend({
+          getCircumference: function() {
+            return 2 * Math.PI * radius;
+          }
+        });
+      }
+    });
+    
+The code is slightly more verbose in this case but you get access to the base method which I find incredibly useful.
+
+Single Instances
+================
+
+I changed my mind a lot about this but finally decided to allow the creation of single instance classes by defining a null constructor:
+
+    var Math = Base.extend({
+      constructor: null,
+      PI: 3.14,
+      sqr: function(number) {
+        return number * number;
+      }
+    });
