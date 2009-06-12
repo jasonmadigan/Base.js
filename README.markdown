@@ -73,3 +73,27 @@ All classes created in this manner will inherit the extend method so we can easi
     });
   
     var Mouse = Animal.extend();
+    
+Class Properties and Methods
+============================
+A second parameter passed to the extend method of a class defines the class interface:
+
+    var Circle = Shape.extend({ // instance interface
+      constructor: function(x, y, radius) {
+        this.base(x, y);
+        this.radius = radius;
+      },
+  
+      radius: 0,
+  
+      getCircumference: function() {
+        return 2 * Circle.PI * this.radius;
+      }
+    }, { // class interface
+      PI: 3.14
+    });
+    
+Note the use of the base method in the constructor. This ensures that the Shape constructor is also called. Some other things to note:
+
+  * If you define a class method (not an instance method) called init it will be automatically called when the class is created
+  * Constructor functions are never called during the prototyping phase (subclassing)
